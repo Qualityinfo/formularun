@@ -305,7 +305,15 @@ export const GameEngine: React.FC<GameEngineProps> = ({
 
         allObjects.forEach(obj => {
           // Update position
-          obj.y += stateRef.current.speed;
+          let moveSpeed = stateRef.current.speed;
+          
+          // Obstacles (cars) move slightly slower than the road to simulate moving in the same direction
+          // making them easier to track visually as "traffic" rather than static blocks
+          if (obj.type === 'obstacle') {
+            moveSpeed *= 0.7; 
+          }
+          
+          obj.y += moveSpeed;
 
           const proj = getProjection(obj, horizonY);
           if (proj) {
@@ -359,7 +367,8 @@ export const GameEngine: React.FC<GameEngineProps> = ({
         // 7. Logic Updates
         
         // Spawn Obstacles
-        if (Math.random() < 0.02 && stateRef.current.obstacles.length < 5) {
+        // Lowered probability slightly since they stay on screen longer
+        if (Math.random() < 0.015 && stateRef.current.obstacles.length < 5) {
             const lane = (Math.random() * 4) - 2; // -2 to 2
             stateRef.current.obstacles.push({
                 x: lane,
@@ -429,11 +438,12 @@ export const GameEngine: React.FC<GameEngineProps> = ({
         }
 
         // Move Car based on input
+        // Increased sensitivity slightly to match lower speed handling
         if (stateRef.current.keys['ArrowLeft'] || stateRef.current.keys['a']) {
-            stateRef.current.carX -= 0.05;
+            stateRef.current.carX -= 0.06;
         }
         if (stateRef.current.keys['ArrowRight'] || stateRef.current.keys['d']) {
-            stateRef.current.carX += 0.05;
+            stateRef.current.carX += 0.06;
         }
 
         // Update Curve

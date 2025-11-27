@@ -82,11 +82,11 @@ function App() {
 
       {/* MENU SCREEN */}
       {gameState === GameState.MENU && (
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in">
-          <div className="max-w-md w-full flex flex-col gap-6 items-center">
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in overflow-y-auto">
+          <div className="max-w-md w-full flex flex-col gap-6 items-center my-auto">
             
             {/* Logo */}
-            <div className="text-center mb-6">
+            <div className="text-center mb-2">
               <h1 className="font-retro text-5xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-br from-cyan-400 to-blue-600 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">
                 F1 RUSH
               </h1>
@@ -111,6 +111,11 @@ function App() {
 
             {/* Leaderboard */}
             <Leaderboard scores={highScores} />
+
+            {/* Footer */}
+            <div className="text-white/30 text-[10px] font-mono uppercase tracking-widest pb-4">
+              Created by Victor Rocha
+            </div>
           </div>
         </div>
       )}
@@ -148,6 +153,10 @@ function App() {
                 MENU PRINCIPAL
               </Button>
             </div>
+          </div>
+          
+          <div className="mt-8 text-white/20 text-[10px] font-mono uppercase tracking-widest">
+            Created by Victor Rocha
           </div>
         </div>
       )}
